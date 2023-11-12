@@ -1,0 +1,28 @@
+﻿@* <!-- _NCDSelectionPartial.cshtml -->
+
+<div id="ncdSelectionContainer">
+    <div class="form-group">
+        <label asp-for="SelectedNCDs" class="control-label">NCD Names</label>
+        <select asp-for="SelectedNCDs" asp-items="ViewBag.NCDs" class="form-control" multiple></select>
+        <span asp-validation-for="SelectedNCDs" class="text-danger"></span>
+    </div>
+</div>
+
+<button id="addNCDButton" type="button" class="btn btn-primary">Add NCD</button>
+
+@section Scripts {
+    <script>
+        // JavaScript logic for dynamic addition of NCD options
+        $(document).ready(function () {
+            var ncdSelectionContainer = $('#ncdSelectionContainer');
+            var addNCDButton = $('#addNCDButton');
+
+            addNCDButton.click(function () {
+                var newNCDSelection = ncdSelectionContainer.clone();
+                newNCDSelection.find('select').val([]);
+                ncdSelectionContainer.after(newNCDSelection);
+            });
+        });
+    </script>
+}
+ *@

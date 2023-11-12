@@ -1,0 +1,81 @@
+﻿
+@model IEnumerable<patientApi_01.Models.Patient>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1 class="display-4">Patient List</h1>
+<div class="row">
+    <div class="col">
+        <div class="d-flex justify-content-end">          
+            <a asp-action="Create" asp-controller="Patients" class="btn btn-outline-primary btn-sm mb-2"> Add New Patient</a>
+        </div>           
+        @foreach (var patient in Model)
+        {        
+            <div class="card mb-4">
+                <div class="card-header d-flex justify-content-between">
+                    <div>
+                                     
+                        <strong>Name: </strong>@Html.DisplayFor(x => patient.PatientName) &nbsp;&nbsp;&nbsp;&nbsp;
+                        <strong>Epilepsy: </strong>@patient.Epilepsy &nbsp;&nbsp;&nbsp;&nbsp;
+                        <strong>Disease: </strong>@(patient.Disease?.DiseaseName ?? "No Disease") &nbsp;&nbsp;&nbsp;&nbsp;
+                    </div>
+                    <div>
+                   
+                        <a asp-action="Edit" asp-controller="Patients" class="btn btn-outline-success btn-sm" asp-route-id="@patient.PatientID"> Edit</a>
+                        <a asp-action="Delete" asp-controller="Patients" class="btn btn-outline-danger btn-sm" asp-route-id="@patient.PatientID"> Delete</a>
+                    </div>
+                </div>
+                <div class="card-body">
+                
+                    <table class="table table-bordered table-striped table-hover table-responsive-sm">
+                        <thead class="table-primary">
+                            <tr>
+                                <th>NCD Name</th>
+                                <th>Allergy Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    @if (patient.NCDDetails != null && patient.NCDDetails.Any())
+                                    {
+                                     
+                                        <ul>
+                                            @foreach (var ncdDetail in patient.NCDDetails)
+                                            {
+                                                <li>@(ncdDetail.NCD?.NCDName ?? "N/A")</li>
+                                            }
+                                        </ul>
+                                    }
+                                    else
+                                    {
+                                        <div>Asthma</div>
+                                    }
+                                </td>
+                                <td>
+                                    @if (patient.AllergiesDetails != null && patient.AllergiesDetails.Any())
+                                    {                                        
+                                        <ul>
+                                            @foreach (var allergyDetail in patient.AllergiesDetails)
+                                            {
+                                                <li>@(allergyDetail.Allergy?.AllergyName ?? "N/A")</li>
+                                            }
+                                        </ul>
+                                    }
+                                    else
+                                    {
+                                        <div>Drugs-Penicillin</div>
+                                    }
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
+
